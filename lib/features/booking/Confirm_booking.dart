@@ -1,0 +1,421 @@
+import 'package:flutter/material.dart';
+import 'package:movoprive/features/maps/cancel_ride_map.dart';
+
+class ConfirmPayScreen extends StatefulWidget {
+  const ConfirmPayScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ConfirmPayScreen> createState() => _ConfirmPayScreenState();
+}
+
+class _ConfirmPayScreenState extends State<ConfirmPayScreen> {
+  int selectedPaymentMethod = 0; // 0 for Visa, 1 for PayPal
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: const Text(
+          'Confirm & Pay',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+
+              // Ride Type Section
+              const Text(
+                'Standard Ride',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Pickup and Dropoff Locations
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: Colors.indigo,
+                        size: 20,
+                      ),
+                      Container(
+                        width: 2,
+                        height: 30,
+                        color: Colors.grey.shade300,
+                      ),
+                      const Icon(
+                        Icons.location_on,
+                        color: Colors.deepOrange,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          '123 Main Street',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          'USA',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 13,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        const Text(
+                          '123 Main Street',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          'USA',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 10),
+              Text(
+                'Arrives at 2:55 PM',
+                style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              // Payment Method Section
+              const Text(
+                'Payment Method',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 15),
+
+              // Payment Method Selection
+              // Visa Card Option
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedPaymentMethod = 0;
+                  });
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xFF6750A4).withOpacity(0.5),
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/Visa.png', // Replace with your actual visa logo asset
+                        width: 40,
+                        height: 25,
+                        fit: BoxFit.contain,
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            '••••••••7373',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
+                          ),
+                          Text(
+                            'Visa',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 13,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: selectedPaymentMethod == 0
+                              ? null
+                              : Border.all(color: Colors.grey, width: 2),
+                          color: selectedPaymentMethod == 0
+                              ? const Color(0xFF6750A4)
+                              : Colors.transparent,
+                        ),
+                        child: selectedPaymentMethod == 0
+                            ? const Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 14,
+                        )
+                            : null,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              // PayPal Option
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedPaymentMethod = 1;
+                  });
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xFF6750A4).withOpacity(0.5),
+                      width: 1.5,
+                    ),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/PayPal.png', // Replace with your actual PayPal logo asset
+                        width: 40,
+                        height: 25,
+                        fit: BoxFit.contain,
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Paypal',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
+                          ),
+                          Text(
+                            'Connected',
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Container(
+                        width: 20,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: selectedPaymentMethod == 1
+                              ? null
+                              : Border.all(color: Colors.grey, width: 2),
+                          color: selectedPaymentMethod == 1
+                              ? const Color(0xFF6750A4)
+                              : Colors.transparent,
+                        ),
+                        child: selectedPaymentMethod == 1
+                            ? const Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 14,
+                        )
+                            : null,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 1),
+
+              // Add Payment Method Button
+              TextButton.icon(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.add,
+                  color: Color(0xFF6750A4),
+                  size: 20,
+                ),
+                label: const Text(
+                  'Add Payment Method',
+                  style: TextStyle(
+                    color: Color(0xFF6750A4),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  alignment: Alignment.centerLeft,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              // Fare Breakdown
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: const Color(0xFF6750A4).withOpacity(0.5),
+                    width: 1.5,
+                  ),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          'Ride Fare',
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          '\$35.50',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 1),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          'Service Fee',
+                          style: TextStyle(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          '\$35.50',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    const Divider(),
+                    const SizedBox(height: 4),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text(
+                          'Total',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          '\$35.50',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              const Spacer(),
+
+              // Confirm Booking Button
+              Container(
+                width: double.infinity,
+                height: 45,
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color(0xFF2D0A53), // Dark purple
+                      Color(0xFFD4AF37), // Gold
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => CancelRideMap()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text(
+                    'Confirm Booking',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

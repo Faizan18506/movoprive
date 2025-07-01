@@ -1,0 +1,133 @@
+import 'package:flutter/material.dart';
+import 'package:movoprive/features/settings/widgets/GradientButton2.dart';
+
+
+
+class PersonalInformationScreen extends StatelessWidget {
+  const PersonalInformationScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Text(
+          'Personal information',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: false,
+        titleSpacing: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            // Handle back navigation
+          },
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(
+            height: 1,
+            color: Color(0xFF2D0A53), // Deep purple color for the divider
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Contact details section
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(top: 3, right: 10),
+                  child: Icon(
+                    Icons.person,
+                    size: 24,
+                    color: Colors.black,
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Contact details title
+                    Text(
+                      'Contact details',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+
+                    // User name
+                    Text(
+                      'Adams W',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black,
+                      ),
+                    ),
+
+                    SizedBox(height: 12),
+
+                    // Mobile Number label
+                    Text(
+                      'Mobile Number',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                      ),
+                    ),
+
+                    // Mobile Number value
+                    Text(
+                      '+1874*******34',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
+                    ),
+
+                    SizedBox(height: 12),
+
+                    // Email label
+                    Text(
+                      'Email',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                      ),
+                    ),
+
+                    // Email value
+                    Text(
+                      'Example@gmail.com',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            Spacer(),
+
+            // Change information button
+           Center(child: GradientButton2(text: "Change Information ", onPressed: (){
+
+           })),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,175 @@
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:movoprive/features/booking/your_ride_Screen.dart';
+import 'package:movoprive/features/home/screens/availble_carScreen.dart';
+
+import '../settings/widgets/GradientButton2.dart';
+
+class PickupLocationScreen extends StatefulWidget {
+  const PickupLocationScreen({Key? key}) : super(key: key);
+
+  @override
+  State<PickupLocationScreen> createState() => _PickupLocationScreenState();
+}
+
+class _PickupLocationScreenState extends State<PickupLocationScreen> {
+  late GoogleMapController _mapController;
+  final LatLng _initialPosition = const LatLng(
+    51.5074,
+    -0.1278,
+  ); // London coordinates
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          // Map Container (2/3 of screen)
+          Expanded(
+            flex: 2,
+            child: Stack(
+              children: [
+                GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: _initialPosition,
+                    zoom: 14.0,
+                  ),
+                  onMapCreated: (controller) {
+                    _mapController = controller;
+                  },
+                  markers: {
+                    Marker(
+                      markerId: const MarkerId('pickup'),
+                      position: _initialPosition,
+                      infoWindow: const InfoWindow(title: 'Pickup Location'),
+                    ),
+                  },
+                ),
+
+                // Set pickup text
+                Positioned(
+                  left: 16,
+                  bottom: 16,
+                  child: const Text(
+                    "Set pickup on map",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Location input section (1/3 of screen)
+          Expanded(
+            flex: 1,
+            child: Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Enter Location field
+                  Row(
+                    children: [
+                      Container(
+                        width: 12,
+                        height: 12,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF000000), // Gold color
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Container(
+                          height: 48,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(24),
+                            border: Border.all(
+                              color: Color(0xFF410081),
+                              width: 1.5,
+                            ),
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: "Enter Location",
+                                hintStyle: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 16,
+                                ),
+                                border: InputBorder.none,
+                                // Removes the default underline
+                                contentPadding:
+                                    EdgeInsets.zero, // Aligns text vertically
+                              ),
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // England field
+                  Row(
+                    children: [
+                      Container(
+                        width: 12,
+                        height: 12,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF000000), // Gold color
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: Colors.grey[200],
+                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "England",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Confirm button
+                  GradientButton2(
+                    text: "Confirm",
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AvailableCarsScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

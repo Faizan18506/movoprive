@@ -1,0 +1,251 @@
+import 'package:flutter/material.dart';
+
+
+class D_FilterOptionsScreen extends StatefulWidget {
+  const D_FilterOptionsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<D_FilterOptionsScreen> createState() => _FilterOptionsScreenState();
+}
+
+class _FilterOptionsScreenState extends State<D_FilterOptionsScreen> {
+  // Filter option states
+  bool businessSelected = false;
+  bool todaySelected = false;
+  bool tomorrowSelected = false;
+  bool thisWeekSelected = false;
+  bool airportPickupSelected = false;
+  bool airportDropoffSelected = false;
+  bool transferSelected = false;
+  bool hourlySelected = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header with back button and clear all
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.black),
+                        onPressed: () {
+                          // Handle back button press
+                          Navigator.pop(context);
+                        },
+                      ),
+                      const Text(
+                        "Filter options",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // Handle clear all button press
+                      setState(() {
+                        businessSelected = false;
+                        todaySelected = false;
+                        tomorrowSelected = false;
+                        thisWeekSelected = false;
+                        airportPickupSelected = false;
+                        airportDropoffSelected = false;
+                        transferSelected = false;
+                        hourlySelected = false;
+                      });
+                    },
+                    child: const Text(
+                      "Clear all",
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xFFAA8822),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Filter sections
+            Expanded(
+              child: ListView(
+                children: [
+                  // Vehicle Class
+                  _buildFilterSection(
+                    "Vehicle Class",
+                    [
+                      _buildCheckbox("Business", businessSelected, (value) {
+                        setState(() {
+                          businessSelected = value!;
+                        });
+                      }),
+                    ],
+                  ),
+
+                  _buildDivider(),
+
+                  // Date
+                  _buildFilterSection(
+                    "Date",
+                    [
+                      _buildCheckbox("Today", todaySelected, (value) {
+                        setState(() {
+                          todaySelected = value!;
+                        });
+                      }),
+                      _buildCheckbox("Tomorrow", tomorrowSelected, (value) {
+                        setState(() {
+                          tomorrowSelected = value!;
+                        });
+                      }),
+                      _buildCheckbox("This week", thisWeekSelected, (value) {
+                        setState(() {
+                          thisWeekSelected = value!;
+                        });
+                      }),
+                    ],
+                  ),
+
+                  _buildDivider(),
+
+                  // Location
+                  _buildFilterSection(
+                    "Location",
+                    [
+                      _buildCheckbox("Airport pickup", airportPickupSelected, (value) {
+                        setState(() {
+                          airportPickupSelected = value!;
+                        });
+                      }),
+                      _buildCheckbox("Airport dropoff", airportDropoffSelected, (value) {
+                        setState(() {
+                          airportDropoffSelected = value!;
+                        });
+                      }),
+                    ],
+                  ),
+
+                  _buildDivider(),
+
+                  // Ride Type
+                  _buildFilterSection(
+                    "Ride Type",
+                    [
+                      _buildCheckbox("Transfer", transferSelected, (value) {
+                        setState(() {
+                          transferSelected = value!;
+                        });
+                      }),
+                      _buildCheckbox("Hourly", hourlySelected, (value) {
+                        setState(() {
+                          hourlySelected = value!;
+                        });
+                      }),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            // Apply button
+            Container(
+              width: double.infinity,
+              height: 60,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.purple, Color(0xFFAA8822)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+              margin: const EdgeInsets.all(16),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle apply button press
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  "Apply",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFilterSection(String title, List<Widget> options) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          ...options,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCheckbox(String label, bool value, Function(bool?) onChanged) {
+    return Row(
+      children: [
+        Checkbox(
+          value: value,
+          onChanged: onChanged,
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          visualDensity: VisualDensity.compact,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(2),
+          ),
+          side: const BorderSide(color: Colors.black54, width: 1.5),
+        ),
+        Text(
+          label,
+          style: const TextStyle(
+            fontSize: 15,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDivider() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.0),
+      child: Divider(height: 1, color: Colors.black12),
+    );
+  }
+}

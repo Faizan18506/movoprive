@@ -1,0 +1,194 @@
+import 'package:flutter/material.dart';
+import 'package:movoprive/base/constants/app_images.dart';
+import 'package:movoprive/features/authentication/forgot_pasword/with_phonenum.dart';
+import 'package:movoprive/features/authentication/login/login_email.dart';
+
+import '../../../base/app_widget/CustomTextField.dart';
+import '../../../base/app_widget/RememberForgotWidget.dart';
+import '../../../base/app_widget/SocialLoginButton.dart';
+import '../../../base/app_widget/gradient_btn.dart';
+
+
+
+class LoginPhonenumScreen extends StatefulWidget {
+  const LoginPhonenumScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPhonenumScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginPhonenumScreen> {
+  bool rememberMe = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+
+                // Logo and company name as one image
+                Stack(
+                  alignment: Alignment.center, // Aligns children in the center
+                  children: [
+                    // Logo image
+                    Center(
+                      child: Image.asset(
+                        AppImages.logowithtext_img,
+                        height: 220,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    // "Log in to your Account" text
+                    Positioned(
+                      bottom: 0, // Adjust this value to position the text
+                      child: Text(
+                        'Log in to your Account',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                // Welcome back text
+                Center(
+                  child: const Text(
+                    'Welcome back, please enter your details.',
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                  ),
+                ),
+                const SizedBox(height: 18),
+                // Email input field
+                const CustomTextField(
+                  label: 'Phone Number*',
+                  isPassword: false,
+                ),
+                const SizedBox(height: 12),
+                // Password input field
+                const CustomTextField(label: 'Password*', isPassword: true),
+                const SizedBox(height: 12),
+                // Remember me and Forgot password
+                RememberForgotWidget(
+                  rememberMe: rememberMe,
+                  onRememberChanged: (value) {
+                    setState(() {
+                      rememberMe = value;
+                    });
+                  },
+                  onForgotPassword: () {
+                    // Navigate to Forgot Password screen or show a dialog
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ForgetPasswordPhonenumScreen()),
+                    );
+                  },
+                ),
+                const SizedBox(height: 12),
+                // Phone number login option
+                InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginEmailScreen()),
+                    );
+                    // Handle tap event
+                  },
+                  child: Center(
+                    child: const Text(
+                      'Sign In with Email',
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                // Login button
+                GradientButton(
+                  text: "Login",
+                  onPressed: () {
+                    // Navigate to the next screen
+                  },
+                ),
+                const SizedBox(height: 18),
+                // Divider with OR
+                Row(
+                  children: const [
+                    Expanded(child: Divider(thickness: 1)),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        'OR',
+                        style: TextStyle(color: Colors.black54),
+                      ),
+                    ),
+                    Expanded(child: Divider(thickness: 1)),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                // Social login options
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SocialLoginButton(
+                      icon: AppImages.google_logo,
+                      onPressed: () {},
+                    ),
+                    const SizedBox(width: 16),
+                    SocialLoginButton(
+                      icon: AppImages.facebook_logo,
+                      onPressed: () {},
+                    ),
+                    const SizedBox(width: 16),
+                    SocialLoginButton(
+                      icon: AppImages.apple_logo,
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 32),
+                // Register now text
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Don\'t have an account ? ',
+                      style: TextStyle(color: Colors.black54),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+
+                      },
+                      child: const Text(
+                        'Register Now',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+// Remember me and Forgot password widget
