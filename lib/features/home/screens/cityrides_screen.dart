@@ -128,7 +128,7 @@ class _RideBookingScreenState extends State< CityridesScreen> {
                   const Divider(),
 
                   RideOptionTile(
-                    title: 'Movo Privé Black',
+                    title: 'Movo Privé',
                     description: 'Unparalleled luxury. Your personal concierge on wheels.',
                     isSelected: isPriveSelected,
                     onSelect: () {

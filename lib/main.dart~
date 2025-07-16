@@ -165,7 +165,7 @@ class _MyAppState extends State<MyApp> {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => MainScreen(),
+          '/': (context) => SplashScreen(),
           '/login': (context) => const LoginEmailScreen(),
           '/register': (context) => const RegisterScreen(),
         },

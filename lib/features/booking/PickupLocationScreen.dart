@@ -98,7 +98,12 @@ class _PickupLocationScreenState extends State<PickupLocationScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AvailableCarsScreen(availableDrivers: drivers),
+                builder: (context) => AvailableCarsScreen(
+                  availableDrivers: drivers,
+                  carType: carType,
+                  pickupLat: lat,
+                  pickupLng: lng,
+                ),
               ),
             );
           }

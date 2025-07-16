@@ -119,14 +119,14 @@ class _RideBookingScreenState extends State< ThehourScreen> {
                   const Divider(),
 
                   RideOptionTile(
-                    title: 'Movo Privé Black',
+                    title: 'Movo Privé',
                     description: 'Your private chauffeur and vehicle, ready when you are.',
                     isSelected: isPriveSelected,
                     onSelect: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PickupLocationScreen(carType: 'Movo Privé Black'),
+                          builder: (context) => PickupLocationScreen(carType: 'Movo Privé'),
                         ),
                       );
                     },

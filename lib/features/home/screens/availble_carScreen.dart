@@ -5,7 +5,10 @@ import '../../booking/your_ride_Screen.dart';
 
 class AvailableCarsScreen extends StatelessWidget {
   final List availableDrivers;
-  const AvailableCarsScreen({Key? key, required this.availableDrivers}) : super(key: key);
+  final String? carType;
+  final double? pickupLat;
+  final double? pickupLng;
+  const AvailableCarsScreen({Key? key, required this.availableDrivers, this.carType, this.pickupLat, this.pickupLng}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +177,17 @@ class AvailableCarsScreen extends StatelessWidget {
             InkWell(
               onTap: ()  {
                 print('Book driver: ${driver['_id']}');
-                // Implement booking logic here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => YourRideBookingScreen(
+                      driver: driver,
+                      carType: carType,
+                      pickupLat: pickupLat,
+                      pickupLng: pickupLng,
+                    ),
+                  ),
+                );
               },
               child: Container(
                 width: double.infinity,

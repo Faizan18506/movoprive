@@ -129,7 +129,7 @@ class _RideBookingScreenState extends State< AirportTransferScreen> {
                   const Divider(),
 
                   RideOptionTile(
-                    title: 'Movo Privé Black',
+                    title: 'Movo Privé',
                     description: 'Seamless airport service with meet-and-greet, baggage handling, and chauffeured luxury from gate to destination.',
                     isSelected: isPriveSelected,
                     onSelect: () {
